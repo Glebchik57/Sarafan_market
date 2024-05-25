@@ -35,7 +35,7 @@ class Products(models.Model):
 
 
 class Basket(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneFieldy(
         User,
         verbose_name='Пользователь',
         related_name='busket',
