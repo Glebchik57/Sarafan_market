@@ -7,7 +7,7 @@ from categories.permissions import IsAdminOrReadOnly
 from .permission import IsOwner
 
 
-class ProductsSerializer(viewsets.ModelViewSet):
+class ProductsViewSet(viewsets.ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer
     permission_classes = (IsAdminOrReadOnly,)
