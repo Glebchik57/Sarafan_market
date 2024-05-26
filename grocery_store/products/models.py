@@ -15,10 +15,9 @@ class Products(models.Model):
     )
     slug = models.SlugField(unique=True)
     price = models.FloatField(verbose_name='Цена продукта')
-    image = models.ImageField(
-        verbose_name='Изображение продукта',
-        upload_to="static/subcategories"
-    )
+    image_large = models.ImageField(upload_to='product_images/large/', blank=True, null=True)
+    image_medium = models.ImageField(upload_to='product_images/medium/', blank=True, null=True)
+    image_small = models.ImageField(upload_to='product_images/small/', blank=True, null=True)
     sub_cat = models.ForeignKey(
         SubCategories,
         verbose_name='Подкатегория',
@@ -35,7 +34,7 @@ class Products(models.Model):
 
 
 class Basket(models.Model):
-    user = models.OneToOneFieldy(
+    user = models.OneToOneField(
         User,
         verbose_name='Пользователь',
         related_name='busket',
