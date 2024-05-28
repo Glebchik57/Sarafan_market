@@ -9,6 +9,7 @@ User = get_user_model()
 
 
 class Products(models.Model):
+    '''Модель для хранения объектов товаров'''
     name = name = models.CharField(
         max_length=256,
         verbose_name='Название продукта'
@@ -34,6 +35,7 @@ class Products(models.Model):
 
 
 class Basket(models.Model):
+    '''Модель для хранения объектов корзин пользователей'''
     user = models.OneToOneField(
         User,
         verbose_name='Пользователь',
@@ -53,6 +55,7 @@ class Basket(models.Model):
 
 
 class ProductsToBasket(models.Model):
+    '''Модель для связи товаров и корзин пользователей'''
     product = models.ForeignKey(
         Products,
         on_delete=models.CASCADE,
