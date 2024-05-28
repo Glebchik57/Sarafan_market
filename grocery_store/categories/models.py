@@ -2,11 +2,14 @@ from django.db import models
 
 
 class Categories(models.Model):
+    '''Модель для хранения объектов категорий'''
     name = models.CharField(max_length=256, verbose_name='Название категории')
     slug = models.SlugField(unique=True)
     image = models.ImageField(
         verbose_name='Изображение подкатегории',
-        upload_to="static/categories"
+        upload_to="static/categories",
+        blank=True,
+        null=True
     )
 
     class Meta:
@@ -18,6 +21,7 @@ class Categories(models.Model):
 
 
 class SubCategories(models.Model):
+    '''Модель для хранения объектов подкатегорий'''
     category = models.ForeignKey(
         Categories,
         verbose_name='Категория',
@@ -31,7 +35,9 @@ class SubCategories(models.Model):
     slug = models.SlugField(unique=True)
     image = models.ImageField(
         verbose_name='Изображение подкатегории',
-        upload_to="static/subcategories"
+        upload_to="static/subcategories",
+        blank=True,
+        null=True
     )
 
     class Meta:

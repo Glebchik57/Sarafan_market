@@ -6,6 +6,7 @@ from .models import Products, Basket, ProductsToBasket
 
 
 class ProductsSerializer(serializers.ModelSerializer):
+    '''Сериализатор для модели Products'''
     full_category = serializers.SerializerMethodField()
     image_large = Base64ImageField()
     image_medium = Base64ImageField()
@@ -25,12 +26,14 @@ class ProductsSerializer(serializers.ModelSerializer):
         )
 
     def get_full_category(self, obj):
+        '''Метод получения полного названия категории(категория+подкатегория)'''
         sub_cat = obj.sub_cat
         category = sub_cat.category
         return f'{category.name}/{sub_cat.name}'
 
 
 class BasketSerializer(serializers.ModelSerializer):
+    '''Сериализатор для модели Basket'''
     cost = serializers.SerializerMethodField()
 
     class Meta:
@@ -38,6 +41,7 @@ class BasketSerializer(serializers.ModelSerializer):
         fields = ('user', 'products', 'cost')
 
     def get_cost(self, obj):
+        '''Метод получения стоимости всех товаров в корзине'''
         products_to_basket = obj.products_to_basket.all()
         cost = products_to_basket.aggregate(
             total_cost=Sum(F('product__price') * F('amount'))
@@ -46,7 +50,8 @@ class BasketSerializer(serializers.ModelSerializer):
 
 
 class ProductToBasketSerializer(serializers.ModelSerializer):
-    products = ProductsSerializer()
+    '''Сериализатор для модели ProductToBasket'''
+    product = ProductsSerializer()
     basket = BasketSerializer()
 
     class Meta:
